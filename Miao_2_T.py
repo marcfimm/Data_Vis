@@ -25,12 +25,20 @@ ax = sns.boxplot(
     y='yield',
     data=filtered_data,
     order=temperature_order,
-    showfliers=False
+    showfliers=False,
+    width=0.5,  # Adjusted width to make boxes a quarter of the size
+    boxprops={'facecolor': '#26828EFF', 'edgecolor': '#000000'}
 )
+ax.yaxis.tick_right()  # Moves the ticks to the right
+ax.yaxis.set_label_position("right")  # Moves the y-axis label to the right
 
 # Update x-axis labels to include temperature and count
 new_labels = [f"{temp}°C, n={counts.get(temp, 0)}" for temp in temperature_order]
 ax.set_xticklabels(new_labels)
+
+# Adjust the spacing between boxes by reducing category width
+plt.xticks(ticks=range(len(temperature_order)), labels=new_labels, ha='center', fontsize=10)
+ax.set_xlim(-0.5, len(temperature_order) - 0.5)
 
 # Customize the plot
 plt.title('Effect of Temperature on NMR Yield')

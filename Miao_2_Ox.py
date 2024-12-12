@@ -25,12 +25,18 @@ ax = sns.boxplot(
     y='yield',
     data=filtered_data,
     order=oxidant_order,
-    showfliers=False
+    showfliers=True,
+    whis=[0, 100]
 )
+
 
 # Update x-axis labels to include oxidant and count
 new_labels = [f"{oxidant}, n={counts.get(oxidant, 0)}" for oxidant in oxidant_order]
 ax.set_xticklabels(new_labels)
+
+# Adjust the spacing between boxes by reducing category width
+plt.xticks(ticks=range(len(oxidant_order)), labels=new_labels, ha='center', fontsize=10)
+ax.set_xlim(-0.5, len(oxidant_order) - 0.5)
 
 # Customize the plot
 plt.title('Effect of Oxidant on NMR Yield')
